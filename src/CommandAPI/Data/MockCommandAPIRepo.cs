@@ -56,7 +56,7 @@ namespace CommandAPI.Data
             throw new NotImplementedException();
         }
 
-        public void UpdateComand(Command cmd)
+        public void UpdateCommand(Command cmd)
         {
             throw new NotImplementedException();
         }

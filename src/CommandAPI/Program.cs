@@ -1,10 +1,15 @@
 using CommandAPI.Data;
+using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
 
 var builder = WebApplication.CreateBuilder(args);
 // dotnet 6 requires this to be added since we 
 // bootstrap from the ground up
+builder.Services.AddDbContext<CommandContext>(opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSqlConnection")));
+builder.Services.AddScoped<ICommandAPIRepo, SqlCommandAPIRepo>();
 builder.Services.AddControllers();
-builder.Services.AddScoped<ICommandAPIRepo, MockCommandAPIRepo>();
 var app = builder.Build();
 
 // map the controllers
