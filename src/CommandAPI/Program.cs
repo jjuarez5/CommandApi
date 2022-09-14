@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using Npgsql;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
 using AutoMapper;
+using Newtonsoft.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 // npgBuilder to use the user secrets
@@ -16,7 +17,7 @@ npgBuilder.Password = builder.Configuration["Password"];
 builder.Services.AddDbContext<CommandContext>(opt => opt.UseNpgsql(npgBuilder.ConnectionString));
 builder.Services.AddScoped<ICommandAPIRepo, SqlCommandAPIRepo>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson();
 var app = builder.Build();
 
 // map the controllers
