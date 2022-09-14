@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Npgsql;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 // npgBuilder to use the user secrets
@@ -14,6 +15,7 @@ npgBuilder.Password = builder.Configuration["Password"];
 // bootstrap from the ground up
 builder.Services.AddDbContext<CommandContext>(opt => opt.UseNpgsql(npgBuilder.ConnectionString));
 builder.Services.AddScoped<ICommandAPIRepo, SqlCommandAPIRepo>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers();
 var app = builder.Build();
 
